@@ -1,8 +1,8 @@
 ---
 title: About
-image: profile.jpg
+image: profile.png
 about:
   template: jolla
 ---
 
-About this blog
+I'm looking forward to sharing data-centric stories with you all this semester! - Kyle Grgecic
