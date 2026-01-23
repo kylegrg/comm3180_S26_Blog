@@ -1,0 +1,8 @@
+---
+title: About
+image: profile.png
+about:
+  template: jolla
+---
+
+I'm looking forward to sharing data-centric stories with you all this semester! - Kyle Grgecic
