@@ -7,6 +7,20 @@
     "text": "I’m looking forward to sharing data-centric stories with you all this semester! - Kyle Grgecic"
   },
   {
+    "objectID": "posts/DOW1.html",
+    "href": "posts/DOW1.html",
+    "title": "Dataset of the Week #1: The Weather in Philadelphia",
+    "section": "",
+    "text": "My post\n\nprint(\"This is some code\")\n\nThis is some code"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Kyle Grgecic’s Data Blog",
+    "section": "",
+    "text": "Dataset of the Week #1: The Weather in Philadelphia\n\n\n\nDOW\n\nweather\n\n\n\n\n\n\n\n\n\nKyle Grgecic\n\n\n\n\n\n\n\n\n\n\n\n\nKyle Grgecic’s Data Blog test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nExample post\n\n\n\n\n\nJan 23, 2026\n\n\nKyle Grgecic\n\n\n\n\n\n\n\n\n\n\n\n\nA test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 12, 2026\n\n\nAn LLM User\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "posts/002_kyle_retest/kyle_retest.html",
     "href": "posts/002_kyle_retest/kyle_retest.html",
     "title": "Kyle Grgecic’s Data Blog test post",
@@ -19,13 +33,6 @@
     "title": "Kyle Grgecic’s Data Blog test post",
     "section": "",
     "text": "Let me know if this looks okay!\nHoping this is enough"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Kyle Grgecic’s Data Blog",
-    "section": "",
-    "text": "Kyle Grgecic’s Data Blog test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nExample post\n\n\n\n\n\nJan 23, 2026\n\n\nKyle Grgecic\n\n\n\n\n\n\n\n\n\n\n\n\nA test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 12, 2026\n\n\nAn LLM User\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/000_test_post/index.html",
