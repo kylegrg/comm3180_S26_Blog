@@ -7,7 +7,7 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/kylegrg/comm3180_S26_Blog
 format:
   html:
     theme: pulse
