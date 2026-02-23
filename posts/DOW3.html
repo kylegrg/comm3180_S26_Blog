@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kyle Grgecic">
-<meta name="dcterms.date" content="2026-02-06">
+<meta name="dcterms.date" content="2026-02-22">
 
-<title>Have Rainy Days in Philly Have Maintained Their Flow? – Kyle Grgecic’s Data Blog</title>
+<title>Alphabetical Advantage: Last Names and Olympic Success – Kyle Grgecic’s Data Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,10 +150,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Have Rainy Days in Philly Have Maintained Their Flow?</h1>
+      <h1 class="title">Alphabetical Advantage: Last Names and Olympic Success</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">DOW</div>
-                <div class="quarto-category">weather</div>
+                <div class="quarto-category">Winter Olympics</div>
+                <div class="quarto-category">Naming Conventions</div>
+                <div class="quarto-category">Social Science</div>
               </div>
                   </div>
   </div>
@@ -171,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 6, 2026</p>
+        <p class="date">February 22, 2026</p>
       </div>
     </div>
     
@@ -190,100 +191,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="rainy-days" class="level1">
-<h1>Rainy Days</h1>
-<p>The term “rainy day” can be attributed to any day in which rain falls. Of course, not all “rainy days” are equal; some rainy days see torrential downpours while others see mere drizzles. I sought to find out what types of rainy days we face here in Philadelphia and to understand how these rainfall patterns have changed over time.</p>
-<p>I was able to access 21 years of Philadelphia weather data. Using this data, I was able to identify the number of rainy days in Philadelphia per year from 2005 to 2025.</p>
-<div id="0ca7ae2f-87c8-4364-825c-94444c8afa64" class="cell" data-execution_count="25">
+<section id="why-last-names-matter" class="level2">
+<h2 class="anchored" data-anchor-id="why-last-names-matter">Why Last Names Matter</h2>
+<p>When I played soccer as a little kid, everything was alphabetized. Roll call, jersey distribution, first dibs at snacktime… the list goes on. If your last name started with A, you were always first, and if it started with Z, you were always waiting. At the time, it felt trivial, but what if these small structural patterns can accumulate into real advantages?</p>
+<p>According to a study reported in <a href="https://www.bloomberg.com/news/articles/2017-02-10/why-your-name-may-be-ruining-your-life">Bloomberg</a> that examined over 3,000 men over a span of 60 years, men with last names that start with letters closer to the beginning of the alphabet have greater academic success and improved career outcomes compared with those with last names that start with letters closer to the end of the alphabet.</p>
+<p>I wanted to see if these results could be applied to an athletic environment with higher stakes than my childhood soccer league: the Winter Olympics.</p>
+</section>
+<section id="u.s.-citizens-vs.-u.s.-olympians" class="level2">
+<h2 class="anchored" data-anchor-id="u.s.-citizens-vs.-u.s.-olympians">U.S. Citizens vs.&nbsp;U.S. Olympians</h2>
+<p>To see if Winter Olympians’ last names were skewed toward the beginning of the alphabet, I wanted to compare the national distribution of last names by first letter <a href="https://dataminingdna.com/most-common-first-letters-of-last-names/">as reported in the 2010 U.S. Census</a> with <a href="https://www.olympedia.org/">U.S. Olympedia</a> data from 1960-2023.</p>
+<div id="89cc2db0-01c0-4c44-a894-d2fec1ab3dc9" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>weather_df <span class="op">=</span> pd.read_csv(<span class="st">'../../05b_DOW1_and_Data_Storytelling/data/philadelphia_weather_2005_to_2025.csv'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>weather_df <span class="op">=</span> weather_df.assign(date<span class="op">=</span>pd.to_datetime(weather_df[<span class="st">'date'</span>]))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wolympics_df <span class="op">=</span> pd.read_csv(<span class="st">'../../07a_DOW3/data/winter_olympics_medals.csv'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>usa_df <span class="op">=</span> wolympics_df[wolympics_df[<span class="st">'noc'</span>]<span class="op">==</span><span class="st">'USA'</span>].copy()</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'any_rain'</span>] <span class="op">=</span> weather_df[<span class="st">"rain"</span>]<span class="op">&gt;</span><span class="dv">0</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>rainy_days_by_year<span class="op">=</span>weather_df.groupby(<span class="st">"year"</span>)[<span class="st">"any_rain"</span>].<span class="bu">sum</span>()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>rainy_days_by_year.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Rainy Days"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> last_name_first_letter (name):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> name.split()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    first_letter <span class="op">=</span> parts[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> first_letter</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>usa_df[<span class="st">'first_letter'</span>] <span class="op">=</span> usa_df[<span class="st">'as'</span>].<span class="bu">apply</span>(last_name_first_letter)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>last_names_df <span class="op">=</span> pd.read_csv(<span class="st">'../../07a_DOW3/data/last_names.csv'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>last_names_df[<span class="st">'people_count'</span>] <span class="op">=</span> last_names_df[<span class="st">'People'</span>].<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">""</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>last_names_sorted <span class="op">=</span> last_names_df.sort_values(<span class="st">'Letter'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>general_counts <span class="op">=</span> (</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    last_names_sorted</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"Letter"</span>)[<span class="st">"people_count"</span>]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>olympic_counts <span class="op">=</span> (</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    usa_df[<span class="st">"first_letter"</span>]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.bar(olympic_counts.index, olympic_counts.values,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"darkcyan"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Letter"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of People"</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"USA Olympians by First Letter"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>plt.bar(last_names_sorted[<span class="st">"Letter"</span>],</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        last_names_sorted[<span class="st">"people_count"</span>],</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"darkcyan"</span>)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Letter"</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of People"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"General Population by First Letter"</span>)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DOW1_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="DOW3_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DOW3_files/figure-html/cell-2-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The average of the annual number of rainy days slightly increased from 117.5 (2005-2015) to 123.0 (2015-2025). Though only a difference of less than a week, these numbers point toward an upward trend in rainfall. So, the annual total rainfall must be increasing as well, right? WRONG!</p>
+<p>From these graphs alone, it can be tough to spot any sort of trend in the data. There are similar spikes in letters B, M, and S, and similar dips in Q, U, and X. It seems like there isn’t a huge difference between the two samples. At least visually, the Olympians appear to mirror the broader U.S. population rather than cluster disproportionately at the front of the alphabet. If alphabetical advantage plays a role in elite athletic success, it’s not immediately obvious in the raw counts. To move beyond eyeballing bar charts, we’ll need to standardize these distributions and look at proportions rather than totals.</p>
 </section>
-<section id="rainfall" class="level1">
-<h1>Rainfall</h1>
-<div id="0ed7fcdf-fd72-4d9c-9376-34e1e1e14a45" class="cell" data-execution_count="29">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>annual_rainfall<span class="op">=</span>weather_df.groupby(<span class="st">"year"</span>)[<span class="st">"rain"</span>].<span class="bu">sum</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>annual_rainfall.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Total Rainfall"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Annual Rainfall in Philadelphia (2005–2025)"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="looking-at-proportions-and-winners" class="level2">
+<h2 class="anchored" data-anchor-id="looking-at-proportions-and-winners">Looking at Proportions and Winners</h2>
+<p>This time, we’ll be comparing the U.S. Census data to the U.S. Olympic data as well as the medal winners within the Olympic data. Additionally, we’ll chunk the alphabet into thirds (A-I, J-R, S-Z) to make any sort of distinction clearer.</p>
+<div id="f5cf23de-1fae-4913-be6f-471abfc16919" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medals <span class="op">=</span> [<span class="st">'Gold'</span>, <span class="st">'Silver'</span>, <span class="st">'Bronze'</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>last_names_sorted_winners <span class="op">=</span> usa_df[usa_df[<span class="st">'medal'</span>].isin(medals)].copy()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>general_counts <span class="op">=</span> (</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    last_names_sorted</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"Letter"</span>)[<span class="st">"people_count"</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>general_props <span class="op">=</span> general_counts <span class="op">/</span> general_counts.<span class="bu">sum</span>()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>olympic_counts <span class="op">=</span> (</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    usa_df[<span class="st">"first_letter"</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>olympic_props <span class="op">=</span> olympic_counts <span class="op">/</span> olympic_counts.<span class="bu">sum</span>()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>winner_counts <span class="op">=</span> (</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    last_names_sorted_winners[<span class="st">"first_letter"</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>winner_props <span class="op">=</span> winner_counts <span class="op">/</span> winner_counts.<span class="bu">sum</span>()</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"General Population Proportion"</span>: general_props,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Olympians Proportion"</span>: olympic_props,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Medalist Proportion"</span>: winner_props</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="dv">0</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> (comparison <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>first_third <span class="op">=</span> comparison.loc[<span class="st">"A"</span>:<span class="st">"I"</span>]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>middle_third <span class="op">=</span> comparison.loc[<span class="st">"J"</span>:<span class="st">"R"</span>]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>last_third <span class="op">=</span> comparison.loc[<span class="st">"S"</span>:<span class="st">"Z"</span>]</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>third_sums <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"General Population"</span>: [</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>()</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Olympians"</span>: [</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>()</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Medalists"</span>: [</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>(),</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>()</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>[<span class="st">"A–I"</span>, <span class="st">"J–R"</span>, <span class="st">"S–Z"</span>])</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>display(third_sums)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DOW1_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The annual rainfall has decreased over the past 21 years from 47.3 inches (2005-2015) to 44.2 inches (2015-2025). The difference in these trends shows that annual rainfall considerably varies from year to year, and there doesn’t seem to be a clear-cut trend in Philly’s rainfall patterns.</p>
-</section>
-<section id="rain-levels" class="level1">
-<h1>Rain Levels</h1>
-<p>To better understand this data, I used the Bhutan National Center for Hydrology and Meteorology’s 7-point scale of 24-hour rainfall intensity to categorize each day based on amount of rainfall, from “no rain” or “very light rain” to “extremely heavy rainfall” (https://www.nchm.gov.bt/attachment/ckfinder/userfiles/files/Rainfall%20intensity%20classification.pdf).</p>
-<div id="e27f80cf-ccce-4015-8000-1071d2e6feec" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'no_rain'</span>] <span class="op">=</span> weather_df[<span class="st">"rain"</span>] <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'very_light_rain'</span>] <span class="op">=</span> (</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">&amp;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&lt;</span> <span class="dv">1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'light_rain'</span>] <span class="op">=</span> (</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="op">&amp;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&lt;</span> <span class="dv">10</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'moderate_rain'</span>] <span class="op">=</span> (</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;=</span> <span class="dv">10</span>) <span class="op">&amp;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&lt;</span> <span class="dv">30</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'heavy_rain'</span>] <span class="op">=</span> (</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;=</span> <span class="dv">30</span>) <span class="op">&amp;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&lt;</span> <span class="dv">70</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'very_heavy_rain'</span>] <span class="op">=</span> (</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;=</span> <span class="dv">70</span>) <span class="op">&amp;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    (<span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&lt;</span> <span class="dv">150</span>)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'extremely_heavy_rain'</span>] <span class="op">=</span> <span class="fl">25.4</span><span class="op">*</span>weather_df[<span class="st">"rain"</span>] <span class="op">&gt;=</span> <span class="dv">150</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>rain_levels <span class="op">=</span> [</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'very_light_rain'</span>, <span class="st">'light_rain'</span>, <span class="st">'moderate_rain'</span>, <span class="st">'heavy_rain'</span>, <span class="st">'very_heavy_rain'</span>, <span class="st">'extremely_heavy_rain'</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>rain_by_year <span class="op">=</span> weather_df.groupby(<span class="st">"year"</span>)[rain_levels].<span class="bu">sum</span>()</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>rain_by_year.plot(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">10</span>), marker<span class="op">=</span><span class="st">"o"</span>).set_xticks(rain_by_year.index)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DOW1_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="24c983f3-83bb-4969-ad4c-743ee58cfe2f" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rain_by_year</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -291,212 +329,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">very_light_rain</th>
-<th data-quarto-table-cell-role="th">light_rain</th>
-<th data-quarto-table-cell-role="th">moderate_rain</th>
-<th data-quarto-table-cell-role="th">heavy_rain</th>
-<th data-quarto-table-cell-role="th">very_heavy_rain</th>
-<th data-quarto-table-cell-role="th">extremely_heavy_rain</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">General Population</th>
+<th data-quarto-table-cell-role="th">USA Olympians</th>
+<th data-quarto-table-cell-role="th">USA Medalists</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2005</th>
-<td>28</td>
-<td>55</td>
-<td>26</td>
-<td>5</td>
-<td>2</td>
-<td>0</td>
+<th data-quarto-table-cell-role="th">A–I</th>
+<td>42.9</td>
+<td>41.7</td>
+<td>42.3</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2006</th>
-<td>22</td>
-<td>49</td>
-<td>31</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
+<th data-quarto-table-cell-role="th">J–R</th>
+<td>35.3</td>
+<td>37.7</td>
+<td>38.7</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2007</th>
-<td>24</td>
-<td>63</td>
-<td>25</td>
-<td>8</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2008</th>
-<td>28</td>
-<td>56</td>
-<td>24</td>
-<td>9</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2009</th>
-<td>25</td>
-<td>62</td>
-<td>31</td>
-<td>13</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2010</th>
-<td>24</td>
-<td>45</td>
-<td>25</td>
-<td>7</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2011</th>
-<td>32</td>
-<td>56</td>
-<td>25</td>
-<td>13</td>
-<td>4</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2012</th>
-<td>21</td>
-<td>61</td>
-<td>25</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2013</th>
-<td>24</td>
-<td>57</td>
-<td>27</td>
-<td>8</td>
-<td>2</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2014</th>
-<td>20</td>
-<td>65</td>
-<td>29</td>
-<td>6</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2015</th>
-<td>25</td>
-<td>47</td>
-<td>32</td>
-<td>8</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2016</th>
-<td>25</td>
-<td>55</td>
-<td>26</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2017</th>
-<td>36</td>
-<td>58</td>
-<td>19</td>
-<td>11</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2018</th>
-<td>24</td>
-<td>69</td>
-<td>42</td>
-<td>9</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2019</th>
-<td>29</td>
-<td>78</td>
-<td>31</td>
-<td>7</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2020</th>
-<td>22</td>
-<td>62</td>
-<td>32</td>
-<td>7</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2021</th>
-<td>26</td>
-<td>55</td>
-<td>29</td>
-<td>7</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2022</th>
-<td>15</td>
-<td>67</td>
-<td>32</td>
-<td>7</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2023</th>
-<td>24</td>
-<td>56</td>
-<td>30</td>
-<td>7</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2024</th>
-<td>19</td>
-<td>68</td>
-<td>19</td>
-<td>6</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2025</th>
-<td>32</td>
-<td>57</td>
-<td>24</td>
-<td>7</td>
-<td>0</td>
-<td>0</td>
+<th data-quarto-table-cell-role="th">S–Z</th>
+<td>21.6</td>
+<td>20.7</td>
+<td>18.9</td>
 </tr>
 </tbody>
 </table>
@@ -504,11 +359,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The above graph and table are rather illuminating to Philadelphia’s rainfall trends. Though there was an increase in the annual number of days with light rainfall, there was a decrease in the annual number of days with heavy or very heavy rainfall. Additionally, the only “extreme” rain event in Philadelphia occurred in 2013, accounting for over 8 inches of rain in a single day (over 14% of the year’s total rainfall!).</p>
+<p>In the general population, 42.9 percent of last names fall in A–I, compared with 41.7 percent of Olympians and 42.3 percent of medalists. The front of the alphabet is not overrepresented among elite athletes; if anything, it approximates the national baseline. The middle third, J–R, on the other hand, is slightly more common among Olympians and medalists than in the general population.</p>
+<p>The back third, S–Z, shows an interesting trend. There is a slight decline in the proportion of people with last names starting with S-Z as we go from the general population to Olympians to Olympic medalists. The drop is modest, but it is the only segment that consistently decreases across each step of selection.</p>
+<p>Still, the magnitude of that shift is small. A difference of two to three percentage points is hardly evidence of a structural alphabetical barrier to athletic success. If alphabetical advantage were meaningfully shaping outcomes, we would expect to see a much sharper front-loading effect among medalists. Instead, the overall distribution remains remarkably stable.</p>
 </section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>Overall, the change in rain patterns warrants further analysis. The actual amount of rain that falls each year seems to be decreasing, yet more days are considered to be “rainy.” This incongruity creates an illusion of increased rainfall when, in reality, the opposite is true. Such a shift toward more frequent but less intense precipitation could have important implications for water resource management, urban drainage systems, and perceptions of climate variability in the region.</p>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Taken together, the data suggest that last-name initials do not meaningfully predict who makes it to the Winter Olympics — or who wins once they get there. While alphabetical order may subtly influence classroom dynamics or early career visibility, it does not appear to sort athletes onto the podium. In this arena, performance seems to outweigh placement in the alphabet.</p>
+<div id="395830f9-1b47-4b2e-9bb7-18849fd54625" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>latest_letter <span class="op">=</span> last_names_sorted_winners[<span class="st">'first_letter'</span>].<span class="bu">max</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>latest_medalists <span class="op">=</span> last_names_sorted_winners[</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    last_names_sorted_winners[<span class="st">'first_letter'</span>] <span class="op">==</span> latest_letter</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>display(latest_medalists)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">type</th>
+<th data-quarto-table-cell-role="th">discipline</th>
+<th data-quarto-table-cell-role="th">event</th>
+<th data-quarto-table-cell-role="th">as</th>
+<th data-quarto-table-cell-role="th">athlete_id</th>
+<th data-quarto-table-cell-role="th">noc</th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">place</th>
+<th data-quarto-table-cell-role="th">tied</th>
+<th data-quarto-table-cell-role="th">medal</th>
+<th data-quarto-table-cell-role="th">first_letter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">7694</th>
+<td>1992.0</td>
+<td>Winter</td>
+<td>Short Track Speed Skating (Skating)</td>
+<td>3,000 metres Relay, Women (Olympic)</td>
+<td>Nikki Ziegelmeyer</td>
+<td>83119</td>
+<td>USA</td>
+<td>United States</td>
+<td>2.0</td>
+<td>False</td>
+<td>Silver</td>
+<td>Z</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7695</th>
+<td>1994.0</td>
+<td>Winter</td>
+<td>Short Track Speed Skating (Skating)</td>
+<td>3,000 metres Relay, Women (Olympic)</td>
+<td>Nikki Ziegelmeyer</td>
+<td>83119</td>
+<td>USA</td>
+<td>United States</td>
+<td>3.0</td>
+<td>False</td>
+<td>Bronze</td>
+<td>Z</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">47212</th>
+<td>2010.0</td>
+<td>Winter</td>
+<td>Ice Hockey (Ice Hockey)</td>
+<td>Ice Hockey, Women (Olympic)</td>
+<td>Jinelle Zaugg-Siergiej</td>
+<td>119239</td>
+<td>USA</td>
+<td>United States</td>
+<td>2.0</td>
+<td>False</td>
+<td>Silver</td>
+<td>Z</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">58163</th>
+<td>2022.0</td>
+<td>Winter</td>
+<td>Figure Skating (Skating)</td>
+<td>Team, Mixed (Olympic)</td>
+<td>Vincent Zhou</td>
+<td>138309</td>
+<td>USA</td>
+<td>United States</td>
+<td>2.0</td>
+<td>False</td>
+<td>Silver</td>
+<td>Z</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>So, even if your name is Nikki Ziegelmeyer or Jinelle Zaugg-Siergiej or Vincent Zhou, you can still work all the way to the Olympic podium!</p>
 
 
 </section>
