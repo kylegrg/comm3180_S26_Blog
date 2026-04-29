@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kyle Grgecic">
-<meta name="dcterms.date" content="2026-02-22">
+<meta name="dcterms.date" content="2026-03-19">
 
-<title>Alphabetical Advantage: Last Names and Olympic Success – Kyle Grgecic’s Data Blog</title>
+<title>Ph-atal: Gun-Related Fatalities in Philadelphia – Kyle Grgecic’s Data Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,12 +152,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Alphabetical Advantage: Last Names and Olympic Success</h1>
+      <h1 class="title">Ph-atal: Gun-Related Fatalities in Philadelphia</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Winter Olympics</div>
-                <div class="quarto-category">Naming Conventions</div>
-                <div class="quarto-category">Social Science</div>
-                <div class="quarto-category">U.S. Athletes</div>
+                <div class="quarto-category">Gun violence</div>
+                <div class="quarto-category">Gunshot wounds</div>
+                <div class="quarto-category">Gun-related fatalities</div>
+                <div class="quarto-category">Philadelphia</div>
               </div>
                   </div>
   </div>
@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 22, 2026</p>
+        <p class="date">March 19, 2026</p>
       </div>
     </div>
     
@@ -194,137 +194,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="why-last-names-matter" class="level2">
-<h2 class="anchored" data-anchor-id="why-last-names-matter">Why Last Names Matter</h2>
-<p>When I played soccer as a little kid, everything was alphabetized. Roll call, jersey distribution, first dibs at snacktime… the list goes on. If your last name started with A, you were always first, and if it started with Z, you were always waiting. At the time, it felt trivial, but what if these small structural patterns can accumulate into real advantages?</p>
-<p>According to a study reported in <a href="https://www.bloomberg.com/news/articles/2017-02-10/why-your-name-may-be-ruining-your-life">Bloomberg</a> that examined over 3,000 men over a span of 60 years, men with last names that start with letters closer to the beginning of the alphabet have greater academic success and improved career outcomes compared with those with last names that start with letters closer to the end of the alphabet.</p>
-<p>I wanted to see if these results could be applied to an athletic environment with higher stakes than my childhood soccer league: the Winter Olympics.</p>
+<section id="fatalities" class="level2">
+<h2 class="anchored" data-anchor-id="fatalities">Fatalities</h2>
+<p><em>Bang</em>. A gun fires on the streets of Philadelphia. The victim freezes in their tracks as they realize they’ve been shot, left to bleed out. What now? Is this a death sentence? Do they have any <strong>shot</strong> at survival?</p>
+<p>Gunshot wounds certainly have the potential to be fatal, but not all wounds are equal. Factors like the area of impact and the age of the victim can determine the fatal nature of a gunshot wound. Using gun violence data from <a href="https://www.opendataphilly.org/dataset/shooting-victims">OpenDataPhilly</a>, we can build an understanding of how different factors surrounding the circumstances of a shooting impact survival and fatality rates in Philadelphia.</p>
 </section>
-<section id="u.s.-citizens-vs.-u.s.-olympians" class="level2">
-<h2 class="anchored" data-anchor-id="u.s.-citizens-vs.-u.s.-olympians">U.S. Citizens vs.&nbsp;U.S. Olympians</h2>
-<p>To see if Winter Olympians’ last names were skewed toward the beginning of the alphabet, I wanted to compare the national distribution of last names by first letter <a href="https://dataminingdna.com/most-common-first-letters-of-last-names/">as reported in the 2010 U.S. Census</a> with <a href="https://www.olympedia.org/">U.S. Olympedia</a> data from 1960-2023.</p>
-<div id="89cc2db0-01c0-4c44-a894-d2fec1ab3dc9" class="cell" data-execution_count="20">
+<section id="wound-location" class="level2">
+<h2 class="anchored" data-anchor-id="wound-location">Wound Location</h2>
+<p>The location of the gunshot wound is the factor that impacts survival and fatality rates the most. According to a study conducted by the George Washington University School of Medicine and Health Sciences examining gun violence in Washington D.C., gun-related injuries to the brain, heart, and lungs have proven to be the most fatal. Do gun-related injuries in Philly follow a similar pattern? Let’s find out:</p>
+<div id="b1573b0c-c757-4cb2-9441-68b69236c94a" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wolympics_df <span class="op">=</span> pd.read_csv(<span class="st">'../../07a_DOW3/data/winter_olympics_medals.csv'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>usa_df <span class="op">=</span> wolympics_df[wolympics_df[<span class="st">'noc'</span>]<span class="op">==</span><span class="st">'USA'</span>].copy()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> last_name_first_letter (name):</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> name.split()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    first_letter <span class="op">=</span> parts[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> first_letter</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>usa_df[<span class="st">'first_letter'</span>] <span class="op">=</span> usa_df[<span class="st">'as'</span>].<span class="bu">apply</span>(last_name_first_letter)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>last_names_df <span class="op">=</span> pd.read_csv(<span class="st">'../../07a_DOW3/data/last_names.csv'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>last_names_df[<span class="st">'people_count'</span>] <span class="op">=</span> last_names_df[<span class="st">'People'</span>].<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">""</span>).astype(<span class="bu">int</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>last_names_sorted <span class="op">=</span> last_names_df.sort_values(<span class="st">'Letter'</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>general_counts <span class="op">=</span> (</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    last_names_sorted</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"Letter"</span>)[<span class="st">"people_count"</span>]</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>olympic_counts <span class="op">=</span> (</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    usa_df[<span class="st">"first_letter"</span>]</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.bar(olympic_counts.index, olympic_counts.values,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"darkcyan"</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Letter"</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of People"</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"USA Olympians by First Letter"</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">'ignore'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>shoot_df <span class="op">=</span> pd.read_csv(<span class="st">'../../10b_DOW5/data/shootings.csv'</span>) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>shoot_df[<span class="st">'wound_clean'</span>] <span class="op">=</span> (</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    shoot_df[<span class="st">'wound'</span>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.lower()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.strip()</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.replace(<span class="vs">r'multiple/</span><span class="op">?</span><span class="vs">head'</span>, <span class="st">'head'</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    .replace({<span class="st">'multi'</span>: <span class="st">'multiple'</span>, <span class="st">'knnes'</span>: <span class="st">'knees'</span>})</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> group_wound(x):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pd.isna(x):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'unknown'</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="kw">in</span> [<span class="st">'head'</span>, <span class="st">'neck'</span>]:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'head/neck'</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="kw">in</span> [<span class="st">'back'</span>, <span class="st">'abdomen'</span>, <span class="st">'stomach'</span>, <span class="st">'torso'</span>]:</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'torso'</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="kw">in</span> [<span class="st">'groin'</span>, <span class="st">'hips'</span>, <span class="st">'pelvis'</span>, <span class="st">'hip'</span>, <span class="st">'buttocks'</span>]:</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'pelvis'</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="kw">in</span> [<span class="st">'arm'</span>, <span class="st">'hand'</span>, <span class="st">'wrist'</span>, <span class="st">'shoulder'</span>]:</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'upper extremities'</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="kw">in</span> [<span class="st">'leg'</span>, <span class="st">'thigh'</span>, <span class="st">'knee'</span>, <span class="st">'knees'</span>, <span class="st">'ankle'</span>, <span class="st">'foot'</span>, <span class="st">'legs'</span>]:</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'lower extremities'</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> x <span class="op">==</span> <span class="st">'multiple'</span>:</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'multiple'</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>shoot_df2 <span class="op">=</span> shoot_df.copy()</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>shoot_df2[<span class="st">'wound_grouped'</span>] <span class="op">=</span> shoot_df2[<span class="st">'wound_clean'</span>].<span class="bu">apply</span>(group_wound)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>wound_counts <span class="op">=</span> shoot_df2[<span class="st">'wound_grouped'</span>].value_counts()</span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>plt.bar(last_names_sorted[<span class="st">"Letter"</span>],</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        last_names_sorted[<span class="st">"people_count"</span>],</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"darkcyan"</span>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Letter"</span>)</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of People"</span>)</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"General Population by First Letter"</span>)</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>fatal_notna <span class="op">=</span> shoot_df2[shoot_df2[<span class="st">'fatal'</span>].notna()]</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>fatal_plot <span class="op">=</span> px.histogram(</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    fatal_notna,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'wound_grouped'</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    facet_col<span class="op">=</span><span class="st">'fatal'</span>,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Gunshot Wound Locations: Fatal vs Non-Fatal'</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>fatal_plot.layout.annotations[<span class="dv">0</span>].text <span class="op">=</span> <span class="st">'Fatal'</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>fatal_plot.layout.annotations[<span class="dv">1</span>].text <span class="op">=</span> <span class="st">'Non-Fatal'</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>fatal_plot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DOW3_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DOW3_files/figure-html/cell-2-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="DOW5_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>From these graphs alone, it can be tough to spot any sort of trend in the data. There are similar spikes in letters B, M, and S, and similar dips in Q, U, and X. It seems like there isn’t a huge difference between the two samples. At least visually, the Olympians appear to mirror the broader U.S. population rather than cluster disproportionately at the front of the alphabet. If alphabetical advantage plays a role in elite athletic success, it’s not immediately obvious in the raw counts. To move beyond eyeballing bar charts, we’ll need to standardize these distributions and look at proportions rather than totals.</p>
-</section>
-<section id="looking-at-proportions-and-winners" class="level2">
-<h2 class="anchored" data-anchor-id="looking-at-proportions-and-winners">Looking at Proportions and Winners</h2>
-<p>This time, we’ll be comparing the U.S. Census data to the U.S. Olympic data as well as the medal winners within the Olympic data. Additionally, we’ll chunk the alphabet into thirds (A-I, J-R, S-Z) to make any sort of distinction clearer.</p>
-<div id="f5cf23de-1fae-4913-be6f-471abfc16919" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medals <span class="op">=</span> [<span class="st">'Gold'</span>, <span class="st">'Silver'</span>, <span class="st">'Bronze'</span>]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>last_names_sorted_winners <span class="op">=</span> usa_df[usa_df[<span class="st">'medal'</span>].isin(medals)].copy()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>general_counts <span class="op">=</span> (</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    last_names_sorted</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"Letter"</span>)[<span class="st">"people_count"</span>]</span>
+<div id="866f3076-f65f-41ec-ac85-0e5fc686707d" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fatal_plot2 <span class="op">=</span> px.histogram(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fatal_notna,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'wound_grouped'</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    facet_col<span class="op">=</span><span class="st">'fatal'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    histnorm<span class="op">=</span><span class="st">'probability'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Proportion of Wound Locations: Fatal vs Non-Fatal'</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>general_props <span class="op">=</span> general_counts <span class="op">/</span> general_counts.<span class="bu">sum</span>()</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>olympic_counts <span class="op">=</span> (</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    usa_df[<span class="st">"first_letter"</span>]</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>olympic_props <span class="op">=</span> olympic_counts <span class="op">/</span> olympic_counts.<span class="bu">sum</span>()</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>winner_counts <span class="op">=</span> (</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    last_names_sorted_winners[<span class="st">"first_letter"</span>]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    .sort_index()</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>winner_props <span class="op">=</span> winner_counts <span class="op">/</span> winner_counts.<span class="bu">sum</span>()</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"General Population Proportion"</span>: general_props,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Olympians Proportion"</span>: olympic_props,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Medalist Proportion"</span>: winner_props</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>}).fillna(<span class="dv">0</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> (comparison <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>first_third <span class="op">=</span> comparison.loc[<span class="st">"A"</span>:<span class="st">"I"</span>]</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>middle_third <span class="op">=</span> comparison.loc[<span class="st">"J"</span>:<span class="st">"R"</span>]</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>last_third <span class="op">=</span> comparison.loc[<span class="st">"S"</span>:<span class="st">"Z"</span>]</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>third_sums <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"General Population"</span>: [</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"General Population Proportion"</span>].<span class="bu">sum</span>()</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Olympians"</span>: [</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"USA Olympians Proportion"</span>].<span class="bu">sum</span>()</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"USA Medalists"</span>: [</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        first_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        middle_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>(),</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        last_third[<span class="st">"USA Medalist Proportion"</span>].<span class="bu">sum</span>()</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>[<span class="st">"A–I"</span>, <span class="st">"J–R"</span>, <span class="st">"S–Z"</span>])</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>display(third_sums)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>fatal_plot2.layout.annotations[<span class="dv">0</span>].text <span class="op">=</span> <span class="st">'Fatal'</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>fatal_plot2.layout.annotations[<span class="dv">1</span>].text <span class="op">=</span> <span class="st">'Non-Fatal'</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>fatal_plot2.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DOW5_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The first set of graphs compares the raw number of gunshot wounds by body location for fatal and non-fatal incidents. Fatal shootings are heavily concentrated in head/neck and multiple wound categories, while non-fatal shootings are much more common in the lower extremities and upper extremities. This suggests that injuries to more vital areas of the body are far more likely to result in death. In contrast, non-fatal incidents tend to involve less immediately life-threatening regions.</p>
+<p>When looking at proportions, the differences become even clearer. Fatal shootings have a much higher share of head/neck and torso-related injuries, reinforcing the idea that damage to critical organs (heart, lungs) drives mortality. Non-fatal shootings, on the other hand, are disproportionately concentrated in the extremities, especially the legs. This emphasizes the point made by the folks at GW: the location of injury plays a major role in survival outcomes.</p>
+</section>
+<section id="age-and-gender" class="level2">
+<h2 class="anchored" data-anchor-id="age-and-gender">Age and Gender</h2>
+<p>According to the D.C. study, gun violence is primarily perpetrated by young adults, with a mean age of 31 years and a standard deviation of 12.5 years. Additionally, the perpetrators of gun violence were reported as 91% male. By comparing these numbers with the data from Philadelphia, data that centers on the victims of these shootings rather than perpetrators, we can further understand the traits associated with gun-related deaths.</p>
+<div id="4544afd8-4b13-47ce-a2d6-a8b185e7e424" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shoot_df2 <span class="op">=</span> shoot_df2.dropna(subset<span class="op">=</span>[<span class="st">'sex'</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>shoot_df2 <span class="op">=</span> shoot_df2[shoot_df2[<span class="st">'fatal'</span>] <span class="op">==</span> <span class="va">True</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>age_gender <span class="op">=</span> px.histogram(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    shoot_df2,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'age'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    facet_col<span class="op">=</span><span class="st">'sex'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    nbins<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Age Distribution by Gender in Fatal Shootings'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>age_gender.for_each_annotation(<span class="kw">lambda</span> a: a.update(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span><span class="st">'Female'</span> <span class="cf">if</span> <span class="st">'F'</span> <span class="kw">in</span> a.text <span class="cf">else</span> <span class="st">'Male'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>age_gender.show()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>sex_table <span class="op">=</span> (</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    shoot_df2</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    .dropna(subset<span class="op">=</span>[<span class="st">'sex'</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'sex'</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>sex_table[<span class="st">'Percentage'</span>] <span class="op">=</span> ((sex_table[<span class="st">'count'</span>] <span class="op">/</span> sex_table[<span class="st">'count'</span>].<span class="bu">sum</span>())<span class="op">*</span><span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>sex_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DOW5_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -332,29 +332,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">General Population</th>
-<th data-quarto-table-cell-role="th">USA Olympians</th>
-<th data-quarto-table-cell-role="th">USA Medalists</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">Percentage</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">A–I</th>
-<td>42.9</td>
-<td>41.7</td>
-<td>42.3</td>
+<th data-quarto-table-cell-role="th">0</th>
+<td>F</td>
+<td>321</td>
+<td>8.9</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">J–R</th>
-<td>35.3</td>
-<td>37.7</td>
-<td>38.7</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">S–Z</th>
-<td>21.6</td>
-<td>20.7</td>
-<td>18.9</td>
+<th data-quarto-table-cell-role="th">1</th>
+<td>M</td>
+<td>3304</td>
+<td>91.1</td>
 </tr>
 </tbody>
 </table>
@@ -362,109 +356,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In the general population, 42.9 percent of last names fall in A–I, compared with 41.7 percent of Olympians and 42.3 percent of medalists. The front of the alphabet is not overrepresented among elite athletes; if anything, it approximates the national baseline. The middle third, J–R, on the other hand, is slightly more common among Olympians and medalists than in the general population.</p>
-<p>The back third, S–Z, shows an interesting trend. There is a slight decline in the proportion of people with last names starting with S-Z as we go from the general population to Olympians to Olympic medalists. The drop is modest, but it is the only segment that consistently decreases across each step of selection.</p>
-<p>Still, the magnitude of that shift is small. A difference of two to three percentage points is hardly evidence of a structural alphabetical barrier to athletic success. If alphabetical advantage were meaningfully shaping outcomes, we would expect to see a much sharper front-loading effect among medalists. Instead, the overall distribution remains remarkably stable.</p>
+<p>As indicated by the graphs and table above, the number of male victims in fatal shootings is significantly greater than the number of female victims. Men account for 91.1% of fatal shootings in Philadelphia, closely aligning with the same proportion reported by GW. More broadly, gun violence in the city disproportionately affects young men, particularly those in their early to mid-twenties, with approximately 20% of all shooting-related deaths occurring among men aged 20–24. This concentration highlights a clear demographic pattern in who is most at risk.</p>
+<p>Women, by contrast, account for only 8.9% of shooting-related deaths, and their age distribution differs somewhat from that of men. While male fatalities are heavily concentrated among younger age groups, female victims show a relatively higher representation in their 30s and 40s. This suggests that, although women are far less frequently victims of fatal shootings, the circumstances and patterns of victimization may differ in meaningful ways across gender and age groups.</p>
+</section>
+<section id="change-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="change-over-time">Change Over Time</h2>
+<p>To better understand how gun violence has evolved in Philadelphia, it is important to examine trends in fatal shootings over time. While demographic patterns reveal who is most affected, a temporal analysis highlights whether the scale of violence is increasing, decreasing, or remaining stable, providing important context for understanding the trajectory of gun violence in the city.</p>
+<div id="99864ffd-a844-4cfb-9305-b60613d4a338" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>year_counts <span class="op">=</span> (</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    shoot_df2</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'year'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>year_graph <span class="op">=</span> px.line(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    year_counts,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'year'</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'count'</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    markers<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Fatal Shootings in Philadelphia Over Time'</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>year_graph.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DOW5_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The trend in fatal shootings in Philadelphia reveals a clear rise followed by a notable decline over the past decade. From 2015 through 2019, the number of fatal shootings increased gradually, suggesting a steady escalation in gun violence. This upward trend accelerated sharply beginning in 2020, with fatalities peaking around 2021 at just over 500 deaths: the highest point in the dataset.</p>
+<p>Following this peak, fatal shootings began to decline each year, with a particularly steep drop between 2022 and 2024. By 2025, the number of fatal shootings had fallen to levels comparable to those seen before the pandemic-era surge. The sharp decline observed in 2026 likely reflects incomplete data for that year rather than a true drop to near-zero fatalities.</p>
+<p>Overall, this pattern suggests that while Philadelphia experienced a significant surge in fatal gun violence during the early 2020s, recent years have seen meaningful reductions. However, even with this decline, fatal shooting levels remain elevated compared to earlier years in the dataset, indicating that gun violence continues to be a persistent issue.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Taken together, the data suggest that last-name initials do not meaningfully predict who makes it to the Winter Olympics — or who wins once they get there. While alphabetical order may subtly influence classroom dynamics or early career visibility, it does not appear to sort athletes onto the podium. In this arena, performance seems to outweigh placement in the alphabet.</p>
-<div id="395830f9-1b47-4b2e-9bb7-18849fd54625" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>latest_letter <span class="op">=</span> last_names_sorted_winners[<span class="st">'first_letter'</span>].<span class="bu">max</span>()</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>latest_medalists <span class="op">=</span> last_names_sorted_winners[</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    last_names_sorted_winners[<span class="st">'first_letter'</span>] <span class="op">==</span> latest_letter</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>display(latest_medalists)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">type</th>
-<th data-quarto-table-cell-role="th">discipline</th>
-<th data-quarto-table-cell-role="th">event</th>
-<th data-quarto-table-cell-role="th">as</th>
-<th data-quarto-table-cell-role="th">athlete_id</th>
-<th data-quarto-table-cell-role="th">noc</th>
-<th data-quarto-table-cell-role="th">team</th>
-<th data-quarto-table-cell-role="th">place</th>
-<th data-quarto-table-cell-role="th">tied</th>
-<th data-quarto-table-cell-role="th">medal</th>
-<th data-quarto-table-cell-role="th">first_letter</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">7694</th>
-<td>1992.0</td>
-<td>Winter</td>
-<td>Short Track Speed Skating (Skating)</td>
-<td>3,000 metres Relay, Women (Olympic)</td>
-<td>Nikki Ziegelmeyer</td>
-<td>83119</td>
-<td>USA</td>
-<td>United States</td>
-<td>2.0</td>
-<td>False</td>
-<td>Silver</td>
-<td>Z</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">7695</th>
-<td>1994.0</td>
-<td>Winter</td>
-<td>Short Track Speed Skating (Skating)</td>
-<td>3,000 metres Relay, Women (Olympic)</td>
-<td>Nikki Ziegelmeyer</td>
-<td>83119</td>
-<td>USA</td>
-<td>United States</td>
-<td>3.0</td>
-<td>False</td>
-<td>Bronze</td>
-<td>Z</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">47212</th>
-<td>2010.0</td>
-<td>Winter</td>
-<td>Ice Hockey (Ice Hockey)</td>
-<td>Ice Hockey, Women (Olympic)</td>
-<td>Jinelle Zaugg-Siergiej</td>
-<td>119239</td>
-<td>USA</td>
-<td>United States</td>
-<td>2.0</td>
-<td>False</td>
-<td>Silver</td>
-<td>Z</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">58163</th>
-<td>2022.0</td>
-<td>Winter</td>
-<td>Figure Skating (Skating)</td>
-<td>Team, Mixed (Olympic)</td>
-<td>Vincent Zhou</td>
-<td>138309</td>
-<td>USA</td>
-<td>United States</td>
-<td>2.0</td>
-<td>False</td>
-<td>Silver</td>
-<td>Z</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>So, even if your name is Nikki Ziegelmeyer or Jinelle Zaugg-Siergiej or Vincent Zhou, you can still work all the way to the Olympic podium!</p>
+<p>Gun violence in Philadelphia follows patterns. Who gets shot, where they’re hit, and when the violence occurs all shape whether a victim lives or dies. Young men bear the greatest burden, and wounds to vital areas like the head and torso dramatically increase the likelihood of death. While recent declines in fatalities offer some hope, the data makes one thing clear: survival is deeply tied to the circumstances of the shooting.</p>
 
 
 </section>

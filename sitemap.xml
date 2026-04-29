@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/about.html</loc>
-    <lastmod>2026-03-06T05:32:46.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/000_test_post/index.html</loc>
-    <lastmod>2026-03-06T05:32:46.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW4.html</loc>
-    <lastmod>2026-03-06T05:32:46.425Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/002_kyle_retest/kyle_retest.html</loc>
-    <lastmod>2026-03-06T05:32:46.421Z</lastmod>
-  </url>
-  <url>
     <loc>https://kylegrg.github.io/comm3180_S26_Blog/index.html</loc>
-    <lastmod>2026-03-06T05:32:46.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW3.html</loc>
-    <lastmod>2026-03-06T05:32:46.424Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW2.html</loc>
-    <lastmod>2026-03-06T05:32:46.423Z</lastmod>
+    <lastmod>2026-04-29T14:32:19.972Z</lastmod>
   </url>
   <url>
     <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW1.html</loc>
-    <lastmod>2026-03-06T05:32:46.422Z</lastmod>
+    <lastmod>2026-04-29T14:32:19.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/000_test_post/index.html</loc>
+    <lastmod>2026-04-29T14:32:19.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW3.html</loc>
+    <lastmod>2026-04-29T14:32:19.976Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW4.html</loc>
+    <lastmod>2026-04-29T14:32:19.977Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/002_kyle_retest/kyle_retest.html</loc>
+    <lastmod>2026-04-29T14:32:19.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW5.html</loc>
+    <lastmod>2026-04-29T14:32:19.980Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/posts/DOW2.html</loc>
+    <lastmod>2026-04-29T14:32:19.975Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kylegrg.github.io/comm3180_S26_Blog/about.html</loc>
+    <lastmod>2026-04-29T14:32:19.972Z</lastmod>
   </url>
 </urlset>
